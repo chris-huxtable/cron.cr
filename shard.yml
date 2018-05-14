@@ -1,0 +1,13 @@
+name: cron
+version: 0.1.0
+
+authors:
+  - Chris Huxtable <chris@huxtable.ca>
+
+development_dependencies:
+  user_group:
+    github: chris-huxtable/user_group.cr
+
+crystal: 0.24.2
+
+license: ISC

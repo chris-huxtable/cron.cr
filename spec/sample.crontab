@@ -1,0 +1,8 @@
+# (Cron version V5.0)
+SHELL=/bin/sh
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+HOME=/var/log
+
+# tag managed cron tasks
+@daily                                  (test) # tagged: daily.test
+0       2       *       *       *       (test) # tagged: another.test
