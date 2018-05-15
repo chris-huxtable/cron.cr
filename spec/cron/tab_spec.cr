@@ -76,4 +76,12 @@ describe Cron::Tab do
 
 	end
 
+	it "writes correctly" do
+
+		tab = Cron::Tab.new!("spec/sample.crontab")
+		tab.write("/tmp/spec_cron.cr")
+
+		File.read("/tmp/spec_cron.cr").should eq(tab.to_s)
+	end
+
 end
