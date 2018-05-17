@@ -4,9 +4,11 @@ version: 0.1.0
 authors:
   - Chris Huxtable <chris@huxtable.ca>
 
-development_dependencies:
+dependencies:
   user_group:
     github: chris-huxtable/user_group.cr
+  file_atomic_write:
+    github: chris-huxtable/file_atomic_write.cr
 
 crystal: 0.24.2
 

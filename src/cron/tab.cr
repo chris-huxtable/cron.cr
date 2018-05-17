@@ -13,6 +13,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require "user_group"
+require "file_atomic_write"
 
 
 class Cron::Tab
@@ -139,7 +140,7 @@ class Cron::Tab
 	def write(path : String = @path) : Bool
 		return false if ( !dirty?() && path == @path )
 
-		atomic_overwrite(path) { |fd| to_s(fd) }
+		File.atomic_write(path) { |fd| to_s(fd) }
 		mark_clean()
 
 		return true
@@ -214,53 +215,6 @@ class Cron::Tab
 
 	protected def dirty?() : Bool
 		return @dirty_flag
-	end
-
-
-	# MARK: - Overwriting
-
-	protected def new_atomic_path(path : String, length : Int::Unsigned = 16_u8) : String
-		name = "#{path}.atomic_#{Random::Secure.urlsafe_base64(length)}"
-
-		limit = 10
-		while ( File.exists?(name) && limit > 0 )
-			name = "#{path}.atomic_#{Random::Secure.urlsafe_base64(length)}"
-			limit -= 1
-		end
-
-		return name
-	end
-
-	protected def atomic_overwrite(path : String) : Bool
-		atomic_path = new_atomic_path(path)
-		success_flag = false
-
-		stat = File.stat(path) if ( File.exists?(path) )
-
-		begin
-			File.open(atomic_path, "w") { |fd|
-
-				fd.flock_exclusive() {
-					yield(fd)
-					success_flag = true
-
-					fd.flush()
-				}
-			}
-		ensure
-			if ( !success_flag )
-				File.delete(atomic_path)
-			else
-				if ( stat )
-					File.chmod(atomic_path, stat.mode)
-					File.chown(atomic_path, stat.uid, stat.gid)
-				end
-
-				File.rename(atomic_path, path)
-			end
-		end
-
-		return success_flag
 	end
 
 
