@@ -82,6 +82,8 @@ describe Cron::Tab do
 		tab.write("/tmp/spec_cron.cr")
 
 		File.read("/tmp/spec_cron.cr").should eq(tab.to_s)
+
+		File.delete("/tmp/spec_cron.cr")
 	end
 
 end
