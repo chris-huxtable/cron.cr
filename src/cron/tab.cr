@@ -101,7 +101,7 @@ class Cron::Tab
 	def disable_task(tag : String) : Bool
 		return map_tagged(tag) { |line|
 			next if ( line.starts_with?('#') )
-			next "# " + line
+			next "# #{line}"
 		}
 	end
 

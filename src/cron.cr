@@ -13,7 +13,6 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require "user_group"
-
 require "./cron/*"
 
 
