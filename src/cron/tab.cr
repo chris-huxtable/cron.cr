@@ -13,7 +13,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require "user_group"
-require "file_atomic_write"
+require "atomic_write"
 
 
 class Cron::Tab

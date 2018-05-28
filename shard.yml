@@ -7,8 +7,8 @@ authors:
 dependencies:
   user_group:
     github: chris-huxtable/user_group.cr
-  file_atomic_write:
-    github: chris-huxtable/file_atomic_write.cr
+  atomic_write:
+    github: chris-huxtable/atomic_write.cr
 
 crystal: 0.24.2
 
